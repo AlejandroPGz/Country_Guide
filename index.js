@@ -42,7 +42,9 @@ const busqueda = () => {
     const countryName = filteredCountries[0].name.common;
     const capital = filteredCountries[0].capital[0];
     const flag = filteredCountries[0].flags.svg;
-    const poblacion = filteredCountries[0].population;
+    const poblacion = parseInt(filteredCountries[0].population);
+    const poblationDecimal = poblacion.toLocaleString();
+
     const region = filteredCountries[0].region;
     const timeZone = filteredCountries[0].timezones[0];
 
@@ -59,7 +61,7 @@ const busqueda = () => {
         <h3 class="country-name">${countryName}</h3>
         <ul id="lista">
             <li class="li"><span class="spans" id="capital">Capital: ${capital}</span></li>
-            <li class="li"><span class="spans" id="population">Population: ${poblacion}</span></li>
+            <li class="li"><span class="spans" id="population">Population: ${poblationDecimal}</span></li>
             <li class="li"><span class="spans" id="region">Region: ${region}</span></li>
             <li class="li"><span class="spans" id="zona-horaria">TimeZone: ${timeZone}</span></li>
         </ul>
@@ -104,6 +106,7 @@ const busqueda = () => {
        console.log(dataClima);
        const grades = dataClima.main.temp;
        const climaDescripcion = dataClima.weather[0].description;
+       const iconClima = dataClima.weather[0].icon;
 
        loaderClima.classList.add('loader-clima-dissapear');
 
@@ -113,30 +116,10 @@ const busqueda = () => {
         divText.innerHTML += `
         <div class="div-gradosylogo">
         <span id="grades">${grades}</span>
-        <img id="icono-del-clima" style=" width: 3.5rem; height: 3.5rem;" src="" alt="">
+        <img id="icono-del-clima" style=" width: 3.5rem; height: 3.5rem;" src="https://openweathermap.org/img/wn/${iconClima}@2x.png" alt="">
         </div>
         <span id="span-clima" class="spans">Weather: ${climaDescripcion}</span>
         ` 
-
-      const weatherIconSRC = document.getElementById('icono-del-clima');
-
-
-      if (dataClima.weather[0].main === "Clouds") {
-        weatherIconSRC.src = "svgs/images/clouds.png"
-
-      } else if (dataClima.weather[0].main === "Clear") {
-        weatherIconSRC.src = "svgs/images/clear.png"
-
-      } else if (dataClima.weather[0].main === "Rain") {
-        weatherIconSRC.src = "svgs/images/rain.png"
-
-      } else if (dataClima.weather[0].main === "Drizzle") {
-        weatherIconSRC.src = "svgs/images/drizzle.png"
-
-      } else if (dataClima.weather[0].main === "Mist") {
-        weatherIconSRC.src = "svgs/images/mist.png" 
-
-      } 
 
     } catch (error) {
        alert('error2')
@@ -145,7 +128,7 @@ const busqueda = () => {
    })();
 
 
-  } else if (filteredCountries.length < 9) {
+  } else if (filteredCountries.length < 9 && filteredCountries.length > 0 ) {
    nombresPaises = filteredCountries.map(country => country.name.common); // .map me crea un nuevo array a partir de otro ya dado
    banderasPaises = filteredCountries.map(country => country.flags.svg); 
    divCountries.classList.add('div-show');
@@ -160,7 +143,7 @@ const busqueda = () => {
         <span class="spans-multiple">${nombresPaises[i]}</span>
     </div>`;
    } 
-  } else if (inputCountry.value.length >= 1) {
+  } else if (filteredCountries.length > 0 && filteredCountries.length > 9) {
     console.log(inputCountry.value);
     divCountries.classList.remove('div-show');
     divCountries.classList.remove('div-hide');
@@ -169,6 +152,8 @@ const busqueda = () => {
     <h3>Su busqueda tiene que ser mas especifica</h3>
  </div>`
   } else if (filteredCountries.length === 0) {
+    console.log('hola')
+
     divCountries.classList.add('div-mensaje');
     divCountries.classList.remove('div-show');
     divCountries.classList.remove('div-hide');
@@ -188,7 +173,7 @@ const busqueda = () => {
 
 
 inputCountry.addEventListener('input', e => {
-// busqueda();
+busqueda();
 })
 
 
@@ -196,4 +181,4 @@ buttonSearch.addEventListener('click', e => {
   e.preventDefault();
   busqueda();
 })
-// clima ccd47940cdd6cfbad918a9aa0d9cc3af
+
