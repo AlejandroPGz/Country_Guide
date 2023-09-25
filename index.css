@@ -133,10 +133,14 @@ html, body {
 
   #button-search {
     height: 3rem;
-    width: 20%;
-    border-radius: 0.5rem;
-  }
+    width: 24%;
+    border-radius: 1.4rem;
+    box-shadow: 0px 1px 20px 2px;
+    }
 
+  #button-search:hover {
+    cursor: pointer;
+  }
 
   /* div-countries */
 
@@ -288,6 +292,7 @@ html, body {
   .div-mensaje {
     display: block;
     background-color: #e5e7eb;
+    border-radius: 1.5rem;
     height: 10rem;
     width: 20rem;
   }
@@ -535,6 +540,7 @@ html, body {
       height: 3rem;
       width: 10%;
       border-radius: 1.5rem;
+      box-shadow: 0px 1px 20px 2px;
     }
     .div-show {
       height: 30rem;  
