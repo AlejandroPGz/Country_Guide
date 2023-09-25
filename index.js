@@ -42,8 +42,7 @@ const busqueda = () => {
     const countryName = filteredCountries[0].name.common;
     const capital = filteredCountries[0].capital[0];
     const flag = filteredCountries[0].flags.svg;
-    const poblacion = parseInt(filteredCountries[0].population);
-    const poblationDecimal = poblacion.toLocaleString();
+    const poblationDecimal = parseInt(filteredCountries[0].population).toLocaleString();
 
     const region = filteredCountries[0].region;
     const timeZone = filteredCountries[0].timezones[0];
@@ -135,6 +134,18 @@ const busqueda = () => {
    divCountries.classList.remove('div-mensaje');
 
    divCountries.innerHTML = `<div id="div-multiples-paises" class="multiple-countries">`;
+
+   
+   const multipleCountries = document.getElementById('div-multiples-paises');
+
+
+    multipleCountries.addEventListener('click', e => {
+      if (e.target.closest('.banderas') || e.target.closest('.spans-multiple') || e.target.closest('.country-m')) {
+        const divPadreCountries = e.target.parentElement;
+        const spanName = divPadreCountries.children[1].textContent;
+        console.log(spanName);
+      }
+    })
 
    for (let i = 0; i < filteredCountries.length; i++) {
     document.getElementById('div-multiples-paises').innerHTML += `
