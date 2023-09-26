@@ -6,36 +6,9 @@ const REGEX = /^\s*$/;
 
 let countries = [];
 
-window.onload = function() { //Funcion que se ejecuta cuando carga toda la pagina (img, scripts: en este caso el fetch, etc)
-(async () => {
-    try {
-     const response = await fetch("https://restcountries.com/v3.1/all");
-     if (response.status >= 400) {
-         throw new Error ('Error');
-     }
-     const data = await response.json();
-     countries = [...data];
-    //  console.log(countries);
-     document.getElementById('loader-page').classList.toggle("loader-dissapear");
-
-     } catch (error) {
-     console.log(error)
-     alert('error')
-    }
- })();
-}
 
 
-const busqueda = () => {
-  let valorInput = inputCountry.value;
-  const filteredCountries = countries.filter(country => country.name.common.toLowerCase().startsWith(valorInput.toLowerCase( ))); //filto en el array las coincidencias con el valor del input, (toLowerCase: pasar todo el string a minusc)
-  console.log(filteredCountries);
-  
-  let nombresPaises = [];
-  let banderasPaises = [];
-
-  
-  if (filteredCountries.length === 1 ) {
+const funcionParaUnPais = (filteredCountries) => {
     divCountries.classList.add('div-show');
     divCountries.classList.remove('div-hide');
     divCountries.classList.remove('div-mensaje');
@@ -125,9 +98,42 @@ const busqueda = () => {
        console.log(error);
       }
    })();
+  }
 
 
-  } else if (filteredCountries.length < 9 && filteredCountries.length > 0 ) {
+
+window.onload = function() { //Funcion que se ejecuta cuando carga toda la pagina (img, scripts: en este caso el fetch, etc)
+(async () => {
+    try {
+     const response = await fetch("https://restcountries.com/v3.1/all");
+     if (response.status >= 400) {
+         throw new Error ('Error');
+     }
+     const data = await response.json();
+     countries = [...data];
+    //  console.log(countries);
+     document.getElementById('loader-page').classList.toggle("loader-dissapear");
+
+     } catch (error) {
+     console.log(error)
+     alert('error')
+    }
+ })();
+}
+
+
+const busqueda = () => {
+  let valorInput = inputCountry.value;
+  const filteredCountries = countries.filter(country => country.name.common.toLowerCase().startsWith(valorInput.toLowerCase( ))); //filto en el array las coincidencias con el valor del input, (toLowerCase: pasar todo el string a minusc)
+  console.log(filteredCountries);
+  
+  let nombresPaises = [];
+  let banderasPaises = [];
+
+  
+  if (filteredCountries.length === 1 ) {
+      funcionParaUnPais(filteredCountries);
+} else if (filteredCountries.length < 9 && filteredCountries.length > 0 ) {
    nombresPaises = filteredCountries.map(country => country.name.common); // .map me crea un nuevo array a partir de otro ya dado
    banderasPaises = filteredCountries.map(country => country.flags.svg); 
    divCountries.classList.add('div-show');
@@ -143,7 +149,12 @@ const busqueda = () => {
       if (e.target.closest('.banderas') || e.target.closest('.spans-multiple') || e.target.closest('.country-m')) {
         const divPadreCountries = e.target.parentElement;
         const spanName = divPadreCountries.children[1].textContent;
+        const funcionClickFiltrado = filteredCountries.filter(encontrar => encontrar.name.common === spanName);
         console.log(spanName);
+        console.log(funcionClickFiltrado);
+
+        funcionParaUnPais(funcionClickFiltrado);
+        
       }
     })
 
