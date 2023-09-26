@@ -269,6 +269,11 @@ html, body {
     background-color: #172554;
     border-radius: 1rem;
   }
+  .country-m:hover {
+    background-color: #7f94db;
+    cursor: pointer;
+    box-shadow: -6px 6px 20px 2px;
+  }
 
   .spans-multiple {
       align-content: center;
