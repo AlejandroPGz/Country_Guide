@@ -152,7 +152,7 @@ const busqueda = () => {
         const funcionClickFiltrado = filteredCountries.filter(encontrar => encontrar.name.common === spanName);
         console.log(spanName);
         console.log(funcionClickFiltrado);
-
+        inputCountry.value = spanName;
         funcionParaUnPais(funcionClickFiltrado);
         
       }
