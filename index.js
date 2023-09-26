@@ -87,7 +87,7 @@ const funcionParaUnPais = (filteredCountries) => {
        //me sirve
         divText.innerHTML += `
         <div class="div-gradosylogo">
-        <span id="grades">${grades}</span>
+        <span id="grades">${grades}°C</span>
         <img id="icono-del-clima" style=" width: 3.5rem; height: 3.5rem;" src="https://openweathermap.org/img/wn/${iconClima}@2x.png" alt="">
         </div>
         <span id="span-clima" class="spans">Weather: ${climaDescripcion}</span>
